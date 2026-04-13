@@ -36,6 +36,7 @@ def test_flatten_nested_dict(d: dict, expected: dict) -> None:
 @pytest.mark.parametrize("items,key_fn,expected", [
     (["cat", "car", "bar", "bat"], lambda w: w[0], {"c": ["cat", "car"], "b": ["bar", "bat"]}),
     ([], lambda x: x, {}),
+    (["solo"], lambda w: w[0], {"s": ["solo"]}),
     ([1, 2, 3, 4], lambda x: x % 2, {1: [1, 3], 0: [2, 4]}),
 ])
 def test_group_by(items, key_fn, expected) -> None:
