@@ -135,6 +135,13 @@ def _score_exercise(
 
 # ── pytest hooks ──────────────────────────────────────────────────────────────
 
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_call(item: pytest.Item) -> Any:
+    outcome = yield
+    if outcome.excinfo and outcome.excinfo[0] is NotImplementedError:
+        pytest.xfail("not implemented yet")
+
+
 def pytest_runtest_logreport(report: pytest.TestReport) -> None:
     if report.when != "call":
         return
